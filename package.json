@@ -1,0 +1,10 @@
+{
+    "name": "connect-badbehavior",
+    "version": "0.0.1",
+    "dependencies": {
+        "connect": "1.9.2",
+        "flatiron": "0.3.3",
+         "union": "0.3.6",
+         "request": "2.16.0"
+    }
+}
