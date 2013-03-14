@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 require('coffee-script');
-module.exports = require('../middleware.coffee');
+module.exports = require('./middleware.coffee');
