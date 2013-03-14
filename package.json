@@ -2,9 +2,16 @@
     "name": "connect-badbehavior",
     "version": "0.0.1",
     "dependencies": {
-        "connect": "1.9.2",
+        "coffee-script": "1.6.1",
         "flatiron": "0.3.3",
-         "union": "0.3.6",
-         "request": "2.16.0"
+        "union": "0.3.6",
+        "request": "2.16.0",
+        "async": "0.2.5",
+        "mocha": "1.8.1",
+        "chai": "1.5.0",
+        "randexp": "0.3.1"
+    },
+    "scripts": {
+        "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers coffee:coffee-script --ui bdd --reporter spec"
     }
 }
