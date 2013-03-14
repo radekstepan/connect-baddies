@@ -7,17 +7,19 @@ check = (input) ->
     for name, field of input
         # Do we have rules?
         if groups = blacklist[name]
-            for { fn, rules } in groups
+            for { fn, response, rules } in groups
                 for rule in rules
-                    if fn(field, rule) then return true
-
-    # All good.
-    false
+                    if fn(field, rule) then return response
 
 # Filter the request against a blacklist.
-module.exports = (req, res, next) ->
-    if check { 'useragent': req.headers['user-agent'], 'url': req.url }
-        res.writeHead 403
-        res.end 'You do not have permission to access this server'
-    else
-        next()
+module.exports = (opts={}) ->
+    (req, res, next) ->
+        # Bad?
+        if response = check { 'useragent': req.headers['user-agent'], 'url': req.url }
+            # Log?
+            if opts.log and typeof opts.log is 'function' then opts.log response.log
+            # Respond.
+            res.writeHead response.statusCode
+            res.end response.message
+        else
+            next()

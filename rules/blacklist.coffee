@@ -4,6 +4,10 @@ module.exports =
         {
             # These user agent strings occur at the beginning of the line.
             fn: (check, rule) -> check.indexOf(rule) is 0
+            response:
+                statusCode: 403
+                body: 'You do not have permission to access this server'
+                log: 'User-Agent was found on blacklist'
             rules: [
                 "8484 Boston Project",  # video poker/porn spam
                 "adwords",      # referrer spam
@@ -67,6 +71,10 @@ module.exports =
         }, {
             # These user agent strings occur anywhere within the line.
             fn: (check, rule) -> check.indexOf(rule) isnt -1
+            response:
+                statusCode: 403
+                body: 'You do not have permission to access this server'
+                log: 'User-Agent was found on blacklist'
             rules: [
                 "<sc",          # XSS exploit attempts
                 "; Widows ",        # misc comment/email spam
@@ -117,6 +125,10 @@ module.exports =
         }, {
             # These are regular expression matches.
             fn: (check, rule) -> check.match new RegExp rule
+            response:
+                statusCode: 403
+                body: 'You do not have permission to access this server'
+                log: 'User-Agent was found on blacklist'
             rules: [
                 /^[A-Z]{10}$/,    # misc email spam
                 /[bcdfghjklmnpqrstvwxz ]{8,}/,
@@ -130,6 +142,10 @@ module.exports =
         {
             # These strings are considered case-insensitive.
             fn: (check, rule) -> check.match rule, 'i'
+            response:
+                statusCode: 403
+                body: 'You do not have permission to access this server'
+                log: 'URL pattern found on blacklist'
             rules: [
                 /0x31303235343830303536/,   # Havij
                 /\.\.\//,              # path traversal

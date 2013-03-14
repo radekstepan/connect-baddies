@@ -9,7 +9,7 @@ middleware = require '../middleware.coffee'
 
 # A flatiron app.
 app = flatiron.app
-app.use flatiron.plugins.http, 'before': [ middleware ]
+app.use flatiron.plugins.http, 'before': [ middleware() ]
 
 port = null
 
@@ -19,14 +19,14 @@ blacklist = require '../rules/blacklist.coffee'
 describe 'Blacklist', ->
 
     before (done) ->
-        app.start 5200, (err) ->
+        app.start 0, (err) ->
             done err if err
             port = app.server.address().port
             done()
 
     for field, groups of blacklist then do (field, groups) ->
         describe field, ->
-            for {rules} in groups
+            for { response, rules } in groups
                 for rule in rules then do (rule) ->
                     # Is rule a regular expression?
                     if rule instanceof RegExp
@@ -49,5 +49,7 @@ describe 'Blacklist', ->
                                 'user-agent': obj.useragent
                         , (err, res) ->
                             if err then return done err
-                            if res.statusCode is 403 then return done()
+                            if res.statusCode is response.statusCode and
+                                res.body is response.message
+                                    return done()
                             done new Error res.body
