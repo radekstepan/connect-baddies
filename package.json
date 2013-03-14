@@ -1,12 +1,13 @@
 {
     "name": "connect-baddies",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": "Radek <rs676@cam.ac.uk>",
     "main": "./index.js",
     "dependencies": {
         "coffee-script": "1.6.1"
     },
     "devDependencies": {
+        "connect": "2.7.3",
         "request": "2.16.0",
         "mocha": "1.8.1",
         "chai": "1.5.0",
