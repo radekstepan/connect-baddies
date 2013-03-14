@@ -1,8 +1,12 @@
 {
     "name": "connect-baddies",
     "version": "0.0.1",
+    "author": "Radek <rs676@cam.ac.uk>",
+    "main": "./index.js",
     "dependencies": {
-        "coffee-script": "1.6.1",
+        "coffee-script": "1.6.1"
+    },
+    "devDependencies": {
         "request": "2.16.0",
         "mocha": "1.8.1",
         "chai": "1.5.0",
@@ -10,5 +14,17 @@
     },
     "scripts": {
         "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers coffee:coffee-script --ui bdd --reporter landing --bail"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:olalonde/connect-acceptOverride.git"
+    },
+    "keywords": [
+        "connect",
+        "express",
+        "flatiron",
+        "middleware",
+        "useragent",
+        "sql-inject"
+    ]
 }
