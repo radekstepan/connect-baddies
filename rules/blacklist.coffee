@@ -1,72 +1,290 @@
 module.exports =
-    # Blacklisted User-Agent strings.    
+    # Blacklisted User-Agent strings.
     'useragent': [
         {
             # These user agent strings occur at the beginning of the line.
-            fn: (check, rule) -> check.indexOf(rule) is 0
+            fn: (check, rule) -> not check or check.indexOf(rule) is 0
             response:
                 statusCode: 403
                 body: 'You do not have permission to access this server'
                 log: 'User-Agent was found on blacklist'
             rules: [
-                "8484 Boston Project",  # video poker/porn spam
-                "adwords",      # referrer spam
-                "autoemailspider",  # spam harvester
-                "blogsearchbot-martin", # from honeypot
-                "BrowserEmulator/", # open proxy software
-                "CherryPicker",     # spam harvester
-                "core-project/",    # FrontPage extension exploits
-                "Diamond",      # delivers spyware/adware
-                "Digger",       # spam harvester
-                "ecollector",       # spam harvester
-                "EmailCollector",   # spam harvester
-                "Email Siphon",     # spam harvester
-                "EmailSiphon",      # spam harvester
-                "Forum Poster",     # forum spambot
-                "grub crawler",     # misc comment/email spam
-                "HttpProxy",        # misc comment/email spam
-                "Internet Explorer",    # XMLRPC exploits seen
-                "ISC Systems iRc",  # spam harvester
-                "Jakarta Commons",  # customised spambots
-                "Java 1.",      # unidentified robots
-                "Java/1.",      # unidentified robots
-                "libwww-perl",      # unidentified robots
-                "LWP",          # unidentified robots
-                "lwp",          # unidentified robots
-                "Microsoft Internet Explorer/", # too old; assumed robot
-                "Microsoft URL",    # unidentified robots
-                "Missigua",     # spam harvester
-                "MJ12bot/v1.0.8",   # malicious botnet
-                "Morfeus",      # vulnerability scanner
-                "Movable Type",     # customised spambots
-                "Mozilla/0",        # malicious software
-                "Mozilla/1",        # malicious software
-                "Mozilla/2",        # malicious software
-                "Mozilla/3",        # malicious software
-                "Mozilla/4.0(",     # from honeypot
-                "Mozilla/4.0+(compatible;+",    # suspicious harvester
-                "Mozilla/4.0 (Hydra)",  # brute force tool
-                "MSIE",         # malicious software
-                "MVAClient",        # automated hacking attempts
-                "Nessus",       # vulnerability scanner
-                "NutchCVS",     # unidentified robots
-                "Nutscrape/",       # misc comment spam
-                "OmniExplorer",     # spam harvester
-                "Opera/9.64(",      # comment spam bot
-                "psycheclone",      # spam harvester
-                "PussyCat ",        # misc comment spam
-                "PycURL",       # misc comment spam
-                "Python-urllib",    # commonly abused
-                "sqlmap/",      # SQL injection
-                "Super Happy Fun ", # spam harvester
-                "TrackBack/",       # trackback spam
-                "user",         # suspicious harvester
-                "User Agent: ",     # spam harvester
-                "User-Agent: ",     # spam harvester
-                "w3af",         # vulnerability scanner
-                "WebSite-X Suite",  # misc comment spam
-                "Winnie Poh",       # Automated Coppermine hacks
-                "Wordpress"        # malicious software
+                '8484 Boston Project',
+                'AESOP_com_SpiderMan',
+                'Alexibot',
+                'BackDoorBot',
+                'BackWeb',
+                'Baiduspider',
+                'BatchFTP',
+                'Bigfoot',
+                'Black.Hole',
+                'BlackWidow',
+                'BlowFish',
+                'Bork-edition',
+                'Bot mailto:craftbot@yahoo.com',
+                'BotALot',
+                'BrowserEmulator/',
+                'BuiltBotTough',
+                'Bullseye',
+                'BunnySlippers',
+                'Cegbfeieh',
+                'CheeseBot',
+                'CherryPicker',
+                'ChinaClaw',
+                'CopyRightCheck',
+                'Crescent',
+                'Curl',
+                'Custo',
+                'DA',
+                'DIIbot',
+                'DISCo',
+                'Diamond',
+                'Digger',
+                'DittoSpyder',
+                'Download',
+                'Drip',
+                'EasyDL',
+                'EirGrabber',
+                'Email Siphon',
+                'EmailCollector',
+                'EmailSiphon',
+                'EmailWolf',
+                'EroCrawler',
+                'Exabot',
+                'Express WebPictures',
+                'ExtractorPro',
+                'EyeNetIE',
+                'Fetch API Request',
+                'FileHound',
+                'FlashGet',
+                'Foobot',
+                'Forum Poster',
+                'FrontPage',
+                'GT::WWW',
+                'GetRight',
+                'GetSmart',
+                'GetWeb!',
+                'Go!Zilla',
+                'Go-Ahead-Got-It',
+                'GrabNet',
+                'Grafula',
+                'HMView',
+                'HTTP::Lite',
+                'HTTrack',
+                'Harvest',
+                'HttpProxy',
+                'IBM EVV',
+                'ISC Systems iRc',
+                'IlseBot',
+                'Image ',
+                'Image Stripper',
+                'Image Sucker',
+                'InfoNaviRobot',
+                'InfoTekies',
+                'Intelliseek',
+                'InterGET',
+                'Internet Explorer',
+                'Internet Ninja',
+                'Iria',
+                'JOC',
+                'Jakarta',
+                'Java',
+                'JennyBot',
+                'JetCar',
+                'JustView',
+                'Jyxobot',
+                'Kenjin.Spider',
+                'Keyword.Density',
+                'LNSpiderguy',
+                'LWP',
+                'LWP::Simple',
+                'LeechFTP',
+                'LexiBot',
+                'LinkScan/8.1a.Unix',
+                'LinkWalker',
+                'LinkextractorPro',
+                'MFC_Tear_Sample',
+                'MIDown tool',
+                'MIIxpc',
+                'MJ12bot/v1.0.8',
+                'MSIE',
+                'MVAClient',
+                'Mag-Net',
+                'Magnet',
+                'MarkWatch',
+                'Mass Downloader',
+                'Mata.Hari',
+                'Memo',
+                'Microsoft Internet Explorer/',
+                'Microsoft URL',
+                'Microsoft.URL',
+                'Mirror',
+                'Missigua',
+                'Missigua Locator',
+                'Mister PiX',
+                'Morfeus',
+                'Movable Type',
+                'Mozilla.*NEWT',
+                'Mozilla/0',
+                'Mozilla/1',
+                'Mozilla/2',
+                'Mozilla/3',
+                'Mozilla/4.0 (Hydra)',
+                'Mozilla/4.0(',
+                'Mozilla/4.0+(compatible;+',
+                'NAMEPROTECT',
+                'NG',
+                'NICErsPRO',
+                'NPbot',
+                'Navroad',
+                'NearSite',
+                'Nessus',
+                'Net Vampire',
+                'NetAnts',
+                'NetMechanic',
+                'NetSpider',
+                'NetZIP',
+                'Netcraft',
+                'NextGenSearchBot',
+                'NimbleCrawler',
+                'Ninja',
+                'Nutch',
+                'Nutscrape/',
+                'Octopus',
+                'Offline Explorer',
+                'Offline Navigator',
+                'OmniExplorer',
+                'Openfind',
+                'Opera/9.64(',
+                'OutfoxBot',
+                'PECL::HTTP',
+                'PHP',
+                'PHP version tracker',
+                'PageGrabber',
+                'Papa Foto',
+                'Pockey',
+                'ProPowerBot/2.14',
+                'ProWebWalker',
+                'Pump',
+                'PussyCat ',
+                'PycURL',
+                'Python-urllib',
+                'QueryN.Metasearch',
+                'RMA',
+                'ReGet',
+                'RealDownload',
+                'RepoMonkey',
+                'SiteSnagger',
+                'SlySearch',
+                'SmartDownload',
+                'Snake',
+                'Snapbot',
+                'Snoopy',
+                'SpaceBison',
+                'SpankBot',
+                'Sqworm',
+                'Super Happy Fun ',
+                'SuperBot',
+                'SuperHTTP',
+                'Surfbot',
+                'Szukacz/1.4',
+                'Teleport',
+                'Telesoft',
+                'The.Intraformant',
+                'TheNomad',
+                'TightTwatBot',
+                'Titan',
+                'TrackBack/',
+                'True_Robot',
+                'TurnitinBot',
+                'TurnitinBot/1.5',
+                'URI::Fetch',
+                'URLy.Warning',
+                'User Agent',
+                'User-Agent',
+                'VCI',
+                'Vacuum',
+                'VoidEYE',
+                'WISENutbot',
+                'WWW-Collector-E',
+                'WWWOFFLE',
+                'Web Image Collector',
+                'Web Sucker',
+                'Web.Image.Collector',
+                'WebAuto',
+                'WebBandit',
+                'WebCopier',
+                'WebEMailExtrac.*',
+                'WebEnhancer',
+                'WebFetch',
+                'WebGo IS',
+                'WebLeacher',
+                'WebReaper',
+                'WebSauger',
+                'WebSite',
+                'WebSite-X Suite',
+                'WebStripper',
+                'WebWhacker',
+                'WebZIP',
+                'Webclipping.com',
+                'WebmasterWorldForumBot',
+                'Website Quester',
+                'Website eXtractor',
+                'Webster',
+                'Wget',
+                'Widow',
+                'Winnie Poh',
+                'Wordpress',
+                'Xaldon',
+                'Xenu',
+                'Zend_Http_Client',
+                'Zeus',
+                'Zyborg',
+                'adwords',
+                'asterias',
+                'attach',
+                'autoemailspider',
+                'blogsearchbot-martin',
+                'compatible ;',
+                'core-project/',
+                'cosmos',
+                'curl',
+                'dragonfly',
+                'eCatch',
+                'ebingbong',
+                'ecollector',
+                'flunky',
+                'gotit',
+                'grub crawler',
+                'heritrix',
+                'hloader',
+                'http client',
+                'httplib',
+                'humanlinks',
+                'ia_archiver',
+                'larbin',
+                'lftp',
+                'libWeb/clsHTTP',
+                'libwww',
+                'likse',
+                'lwp',
+                'lwp-trivial',
+                'moget',
+                'panscient.com',
+                'pavuk',
+                'pcBrowser',
+                'psbot',
+                'psycheclone',
+                'sogou',
+                'spanner',
+                'sqlmap/',
+                'suzuran',
+                'tAkeOut',
+                'toCrawl/UrlDispatcher',
+                'turingos',
+                'urllib',
+                'user',
+                'w3af'
             ]
         }, {
             # These user agent strings occur anywhere within the line.
@@ -76,51 +294,124 @@ module.exports =
                 body: 'You do not have permission to access this server'
                 log: 'User-Agent was found on blacklist'
             rules: [
-                "<sc",          # XSS exploit attempts
-                "; Widows ",        # misc comment/email spam
-                "a href=",      # referrer spam
-                "Bad Behavior Test",    # Add this to your user-agent to test BB
-                "compatible ; MSIE",    # misc comment/email spam
-                "compatible-",      # misc comment/email spam
-                "DTS Agent",        # misc comment/email spam
-                "Email Extractor",  # spam harvester
-                "Firebird/",        # too old; assumed robot
-                "Gecko/25",     # revisit this in 500 years
-                "grub-client",      # search engine ignores robots.txt
-                "hanzoweb",     # very badly behaved crawler
-                "Havij",        # SQL injection tool
-                "Indy Library",     # misc comment/email spam
-                "Ming Mong",        # brute force tool
-                "MSIE 7.0;  Windows NT 5.2",    # Cyveillance
-                "Murzillo compatible",  # comment spam bot
-                ".NET CLR 1)",      # free poker, etc.
-                ".NET CLR1",        # spam harvester
-                "Nikto/",       # vulnerability scanner
-                "Perman Surfer",    # old and very broken harvester
-                "POE-Component-Client", # free poker, etc.
-                "Teh Forest Lobster",   # brute force tool
-                "Turing Machine",   # www.anonymizer.com abuse
-                "Ubuntu/9.25",      # comment spam bot
-                "unspecified.mail", # stealth harvesters
-                "User-agent: ",     # spam harvester/splogger
-                "WebaltBot",        # spam harvester
-                "WISEbot",      # spam harvester
-                "WISEnutbot",       # spam harvester
-                "Win95",        # too old; assumed robot
-                "Win98",        # too old; assumed robot
-                "WinME",        # too old; assumed robot
-                "Win 9x 4.90",      # too old; assumed robot
-                "Windows 3",        # too old; assumed robot
-                "Windows 95",       # too old; assumed robot
-                "Windows 98",       # too old; assumed robot
-                "Windows NT 4",     # too old; assumed robot
-                "Windows NT;",      # too old; assumed robot
-                "Windows NT 5.0;)", # wikispam bot
-                "Windows NT 5.1;)", # wikispam bot
-                "Windows XP 5",     # spam harvester
-                "WordPress/4.01",   # pingback spam
-                "Xedant Human Emulator",# spammer script engine
-                "ZmEu"         # exploit scanner
+                '.NET CLR 1)',
+                '.NET CLR1',
+                '; Widows ',
+                '<sc',
+                'Anonymouse.org',
+                'Bad Behavior Test',
+                'Bandit',
+                'Buddy',
+                'Collector',
+                'Copier',
+                'DTS Agent',
+                'Downloader',
+                'Email Extractor',
+                'Extractor',
+                'Firebird/',
+                'Gecko/25',
+                'Google Wireless Transcoder',
+                'Grabber',
+                'HTTrack',
+                'Havij',
+                'ISC Systems iRc Search ',
+                'Indy Library',
+                'InterGET',
+                'Internet Ninja',
+                'JOC Web Spider',
+                'JetCar',
+                'LeechFTP',
+                'MIDown tool',
+                'MSIE 7.0;  Windows NT 5.2',
+                'Mass Downloader',
+                'Microsoft URL Control',
+                'Ming Mong',
+                'Missigua',
+                'Mister PiX',
+                'Murzillo compatible',
+                'Navroad',
+                'NearSite',
+                'Net Vampire',
+                'NetAnts',
+                'NetSpider',
+                'NetZIP',
+                'Nikto/',
+                'Octopus',
+                'Offline Explorer',
+                'Offline Navigator',
+                'POE-Component-Client',
+                'PageGrabber',
+                'Papa Foto',
+                'Perman Surfer',
+                'ReGet',
+                'RealDownload',
+                'Reaper',
+                'Recorder',
+                'Siphon',
+                'SiteSnagger',
+                'SmartDownload',
+                'Stripper',
+                'Sucker',
+                'SuperBot',
+                'SuperHTTP',
+                'Surfbot',
+                'Teh Forest Lobster',
+                'Teleport Pro',
+                'Turing Machine',
+                'Ubuntu/9.25',
+                'User-agent: ',
+                'VoidEYE',
+                'WEP Search',
+                'WISEbot',
+                'WISEnutbot',
+                'WWWOFFLE',
+                'Web Image Collector',
+                'Web Sucker',
+                'WebAuto',
+                'WebCopier',
+                'WebFetch',
+                'WebGo IS',
+                'WebLeacher',
+                'WebReaper',
+                'WebSauger',
+                'WebStripper',
+                'WebWhacker',
+                'WebZIP',
+                'WebaltBot',
+                'Website Quester',
+                'Website eXtractor',
+                'Wells Search II',
+                'Whacker',
+                'Widow',
+                'Win 9x 4.90',
+                'Win95',
+                'Win98',
+                'WinME',
+                'Windows 3',
+                'Windows 95',
+                'Windows 98',
+                'Windows NT 4',
+                'Windows NT 5.0;)',
+                'Windows NT 5.1;)',
+                'Windows NT;',
+                'Windows XP 5',
+                'WordPress/4.01',
+                'Xaldon WebSpider',
+                'Xedant Human Emulator',
+                'Zeus',
+                'ZmEu',
+                'a href=',
+                'compatible ; MSIE',
+                'compatible-',
+                'grub-client',
+                'hanzoweb',
+                'larbin',
+                'libghttp',
+                'pavuk',
+                'pcBrowser',
+                'sitecheck.internetseer.com',
+                'tAkeOut',
+                'unspecified.mail'
             ]
         }, {
             # These are regular expression matches.
@@ -130,9 +421,11 @@ module.exports =
                 body: 'You do not have permission to access this server'
                 log: 'User-Agent was found on blacklist'
             rules: [
-                /^[A-Z]{10}$/,    # misc email spam
+                /^[A-Z]{10}$/,
+                /[A-Z][a-z]{3,} [a-z]{4,} [a-z]{4,}/,
                 /[bcdfghjklmnpqrstvwxz ]{8,}/,
-                /MSIE [2345]/    # too old; assumed robot
+                /MSIE [2345]/,
+                /^Mozilla$/
             ]
         }
     ]
@@ -147,23 +440,28 @@ module.exports =
                 body: 'You do not have permission to access this server'
                 log: 'URL pattern found on blacklist'
             rules: [
-                /0x31303235343830303536/,   # Havij
-                /\.\.\//,              # path traversal
-                /\.\.\\/,             # path traversal
-                /%60information_schema%60/, # SQL injection probe
-                /\+%2F\*%21/,         # SQL injection probe
-                /%27\-\-/,            # SQL injection
-                /%27%20\-\-/,           # SQL injection
-                /%27%23/,           # SQL injection
-                /%27%20%23/,          # SQL injection
-                /benchmark%28/,         # SQL injection probe
-                /insert\+into\+/,         # SQL injection
-                /r3dm0v3/,          # SQL injection probe
-                /select\+1\+from/,        # SQL injection probe
-                /union\+all\+select/,     # SQL injection probe
-                /union\+select/,         # SQL injection probe
-                /waitfor\+delay\+/,       # SQL injection probe
-                /w00tw00t/         # vulnerability scanner
+                /0x31303235343830303536/,
+                /\.\.\//,
+                /\.\.\\/,
+                /%60information_schema%60/,
+                /\+%2F\*%21/,
+                /%27\-\-/,
+                /%27%20\-\-/,
+                /%27%23/,
+                /%27%20%23/,
+                /benchmark%28/,
+                /insert\+into\+/,
+                /r3dm0v3/,
+                /select\+1\+from/,
+                /union\+all\+select/,
+                /union\+select/,
+                /waitfor\+delay\+/,
+                /w00tw00t/,
+                /((\%3D)|(=))[^\n]*((\%27)|(\')|(\-\-)|(\%3B)|(;))/,
+                /\w*((\%27)|(\'))((\%6F)|o|(\%4F))((\%72)|r|(\%52))/,
+                /((\%3C)|<)((\%2F)|\/)*[a-z0-9\%]+((\%3E)|>)/,
+                /((\%3C)|<)((\%69)|i|(\%49))((\%6D)|m|(\%4D))((\%67)|g|(\%47))[^\n]+((\%3E)|>)/,
+                /((\%3C)|<)[^\n]+((\%3E)|>)/
             ]
         }
     ]

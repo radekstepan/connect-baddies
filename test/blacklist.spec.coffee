@@ -1,15 +1,15 @@
 #!/usr/bin/env coffee
 { assert } = require 'chai'
-async      = require 'async'
-flatiron   = require 'flatiron'
+connect    = require 'connect'
+http       = require 'http'
 request    = require 'request'
 RandExp    = require 'randexp'
 
 middleware = require '../middleware.coffee'
 
-# A flatiron app.
-app = flatiron.app
-app.use flatiron.plugins.http, 'before': [ middleware() ]
+app = connect()
+.use(middleware())
+.use (req, res) -> res.end 'Hello from Connect!'
 
 port = null
 
@@ -19,22 +19,21 @@ blacklist = require '../rules/blacklist.coffee'
 describe 'Blacklist', ->
 
     before (done) ->
-        app.start 0, (err) ->
-            done err if err
-            port = app.server.address().port
+        (server = http.createServer(app)).listen 0, ->
+            port = server.address().port
             done()
 
     for field, groups of blacklist then do (field, groups) ->
         describe field, ->
             for { response, rules } in groups
-                for rule in rules then do (rule) ->
+                for i, rule of rules then do (rule) ->
                     # Is rule a regular expression?
                     if rule instanceof RegExp
                         # Generate a random variant.
                         rule = new RandExp(rule).gen()
 
                     # Run the rule.
-                    it rule, (done) ->
+                    it "##{i}: `#{rule}`", (done) ->
                         # Expose the rule.
                         obj = 'useragent': '', 'url': '/'
                         obj[field] = rule
@@ -50,6 +49,6 @@ describe 'Blacklist', ->
                         , (err, res) ->
                             if err then return done err
                             if res.statusCode is response.statusCode and
-                                res.body is response.message
+                                res.body is response.body
                                     return done()
                             done new Error res.body
