@@ -2,6 +2,8 @@
 
 A [Connect](http://www.senchalabs.org/connect/) middleware for filtering suspicious HTTP requests based on 422 request user-agent and url rules.
 
+[ ![Codeship Status for radekstepan/connect-baddies](https://www.codeship.io/projects/0bf0e230-6f00-0130-b089-22000a9d02dd/status?branch=master)](https://www.codeship.io/projects/1937)
+
 ```coffee-script
 http    = require 'http'
 connect = require 'connect'
